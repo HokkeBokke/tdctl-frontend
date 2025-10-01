@@ -17,6 +17,7 @@ import ReactMarkdown from 'react-markdown';
 import LoadingWrapper from 'components/atoms/loadingWrapper/LoadingWrapper';
 import Footer from 'components/molecules/footer/Footer';
 import JobForm from 'components/molecules/forms/jobForm/JobForm';
+import { createPortal } from 'react-dom';
 
 interface IValidJob {
   jobData: JobItem | undefined;
@@ -34,6 +35,16 @@ export const ValidJob: React.FC<IValidJob> = ({ jobData, isPreview }) => {
       <Footer />
     </div>
   );
+};
+
+interface IValidHead {
+  children: React.ReactNode;
+}
+
+const HeadPortal = ({ children }: IValidHead): React.ReactPortal => {
+  return createPortal(<>
+    {children}
+  </>, document.head);
 };
 
 interface IValidJobLayout {
@@ -65,6 +76,14 @@ const ValidJobLayout: React.FC<IValidJobLayout> = ({ jobData, isPreview }) => {
       ) : (
         <>
           <div className={'pageWrapper'}>
+            <HeadPortal>
+              <meta property="og:title" content={jobData.title}/>
+              <meta property="og:description" content={jobData.description_preview}/>
+              <meta property="og:image" content={imgUrl}/>
+              <meta property="og:url" content={jobData.link}/>
+              <meta property="og:type" content="article"/> 
+              <meta prefix="og: http://ogp.me/ns#"/>
+            </HeadPortal>
             <div>
               <div className={'content'}>
                 <div className={'sidebar'}>
