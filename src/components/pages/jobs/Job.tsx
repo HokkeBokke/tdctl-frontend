@@ -41,10 +41,8 @@ interface IValidHead {
   children: React.ReactNode;
 }
 
-const HeadPortal = ({ children }: IValidHead): React.ReactPortal => {
-  return createPortal(<>
-    {children}
-  </>, document.head);
+const HeadPortal: React.FC<IValidHead> = ({ children }) => {
+  return createPortal(<>{children}</>, document.head);
 };
 
 interface IValidJobLayout {
@@ -77,12 +75,15 @@ const ValidJobLayout: React.FC<IValidJobLayout> = ({ jobData, isPreview }) => {
         <>
           <div className={'pageWrapper'}>
             <HeadPortal>
-              <meta property="og:title" content={jobData.title}/>
-              <meta property="og:description" content={jobData.description_preview}/>
-              <meta property="og:image" content={imgUrl}/>
-              <meta property="og:url" content={jobData.link}/>
-              <meta property="og:type" content="article"/> 
-              <meta prefix="og: http://ogp.me/ns#"/>
+              <meta property="og:title" content={jobData.title} />
+              <meta
+                property="og:description"
+                content={jobData.description_preview}
+              />
+              <meta property="og:image" content={imgUrl} />
+              <meta property="og:url" content={jobData.link} />
+              <meta property="og:type" content="article" />
+              <meta prefix="og: http://ogp.me/ns#" />
             </HeadPortal>
             <div>
               <div className={'content'}>
