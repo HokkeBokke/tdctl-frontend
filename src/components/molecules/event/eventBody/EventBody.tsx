@@ -410,7 +410,7 @@ export const EventInfo: React.FC<{ event: Event; role: RoleOptions }> = ({
     }
     setParticipantHeader('Antall påmeldte');
     return `${
-      (participants > maxParticipants) ? maxParticipants : participants
+      participants > maxParticipants ? maxParticipants : participants
     } / ${maxParticipants} påmeldt`;
   }
 
